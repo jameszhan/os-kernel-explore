@@ -3,6 +3,7 @@
 !*.h
 !*.c
 !*.s
+bochsout.txt
 *.o
 *.out
 */Image
