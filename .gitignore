@@ -1,0 +1,12 @@
+!README
+!Makefile
+!*.h
+!*.c
+!*.s
+*.o
+*.out
+*/Image
+*/boot/boot
+*/tools/build
+*/tools/system
+*/bochs/bootimage-0.00
