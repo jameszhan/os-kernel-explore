@@ -11,3 +11,6 @@ bochsout.txt
 */tools/build
 */tools/system
 */bochs/bootimage-0.00
+
+tmp/*
+/local/*
