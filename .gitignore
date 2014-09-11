@@ -6,6 +6,7 @@
 bochsout.txt
 *.o
 *.out
+*.img
 */Image
 */boot/boot
 */tools/build
