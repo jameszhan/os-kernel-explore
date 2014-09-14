@@ -33,6 +33,45 @@ class RASM
     opcodes << source.to_hex(index < 8 ? 2 : 4)
   end
 
+  {
+      daa: 0x27, das: 0x2F,
+      aaa: 0x37, aas: 0x3F,
+      nop: 0x90, cbw: 0x98, cwd: 0x99, wait: 0x9B, pushf: 0x9C, popf: 0x9D, sahf: 0x9E, lahf: 0x9F,
+      movsb: 0xA4, movsw: 0xA5, cmpsb: 0xA6, cmpsw: 0xA7, stosb: 0xAA, stosw: 0xAB, lodsb: 0xAC, lodsw: 0xAD, scasb: 0xAE, scasw: 0xAF,
+      into: 0xCE, iret: 0xCF,
+      xlat: 0xD7,
+      lock: 0xF0, repnz: 0xF2, repz: 0xF3, hlt: 0xF4, cmc: 0xF5, clc: 0xF8, stc: 0xF9, cli: 0xFA, sti: 0xFB, cld: 0xFC, std: 0xFD
+  }.each do|method, code|
+    define_method method do
+      opcodes << code.to_hex
+    end
+  end
+
+  [[:inc, 0x40], [:dec, 0x48], [:push, 0x50], [:pop, 0x58]].each do|method, base|
+    define_method method do|reg|
+      if (index = REG_16.find_index reg).nil?
+        map = {
+          pop: {
+            es: 0x07,
+            ss: 0x17,
+            ds: 0x1F
+          },
+          push: {
+            es: 0x06,
+            ss: 0x16,
+            cs: 0x0E,
+            ds: 0x1E
+          }
+        }
+        if map[method] && (code = map[method][reg])
+          opcodes << code.to_hex
+        end
+      else
+        opcodes << (base + index).to_hex
+      end
+    end
+  end
+
   def int(no)
     opcodes << 'CD'
     opcodes << no.to_hex
@@ -50,25 +89,17 @@ class RASM
       opcodes << addr.to_hex(8)
     end
   end
-
-  def nop()
-    opcodes << '90'
-  end
-
-  def lock()
-    opcodes << 'F0'
-  end
-
 end
 
 RASM.new.instance_eval do
   msg = 'Hello NASM World, A Ruby ASM!'
-
-  mov :bp, 0x7c13
+  nop
+  mov :bp, 0x7c15
   mov :ax, 0x01301
   mov :cx, msg.length
   mov :dx, 0x0813
   mov :bx, 0x0c
+  nop
   int 0x10
   jmp 0xFE
 
