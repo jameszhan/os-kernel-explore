@@ -10,6 +10,7 @@ end
 class RASM
   REG_8   = [:al, :cl, :dl, :bl, :ah, :ch, :dh, :bl]
   REG_16  = [:ax, :cx, :dx, :bx, :sp, :bp, :si, :di]
+  REG_COMMON = REG_8 + REG_16
 
   def initialize
     yield self if block_given?
@@ -20,7 +21,7 @@ class RASM
   end
 
   def mov(target, source)
-    base, index = 0xB0, [:al, :cl, :dl, :bl, :ah, :ch, :dh, :bh, :ax, :cx, :dx, :bx, :sp, :bp, :si, :di].find_index(target)
+    base, index = 0xB0, REG_COMMON.find_index(target)
     if index
       opcodes << (base + index).to_hex
       if index < 8 && source > 255 || source > 65535
