@@ -9,7 +9,7 @@ end
 
 def display_str_opcodes(base_addr, str_len, row, col, color)
   str =   "BD#{(base_addr + 19).to_hex}"                    # mov bp, ----
-  str <<  'B80013'                                          # mov ax, 01301h
+  str <<  'B80113'                                          # mov ax, 01301h
   str <<  "B9#{str_len.to_hex}00"                           # mov cx, ----
   str <<  "BA#{col.to_hex}#{row.to_hex}"                    # mov dx, ----
   str <<  "BB#{color.to_hex}00"                             # mov bx, ----

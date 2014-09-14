@@ -1,0 +1,73 @@
+
+romimage: file=$BXSHARE/BIOS-bochs-latest
+#romimage: file=bios/seabios-1.6.3.bin
+#romimage: file=mybios.bin, address=0xfff80000 # 512k at memory top
+
+cpu: model=core2_penryn_t9600, count=1, ips=50000000, reset_on_triple_fault=1, ignore_bad_msrs=1, msrs="msrs.def"
+cpu: cpuid_limit_winnt=0
+
+#cpuid: x86_64=1, mmx=1, sep=1, sse=sse4_2, apic=xapic, aes=1, movbe=1, xsave=1
+#cpuid: family=6, model=0x1a, stepping=5
+
+memory: guest=512, host=256
+
+#vgaromimage: file=bios/VGABIOS-elpin-2.40
+vgaromimage: file=$BXSHARE/VGABIOS-lgpl-latest
+#vgaromimage: file=bios/VGABIOS-lgpl-latest-cirrus
+
+#vga: extension=vbe, update_freq=5
+
+floppya: 1_44=/dev/fd0, status=inserted
+
+ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14
+ata1: enabled=1, ioaddr1=0x170, ioaddr2=0x370, irq=15
+ata2: enabled=0, ioaddr1=0x1e8, ioaddr2=0x3e0, irq=11
+ata3: enabled=0, ioaddr1=0x168, ioaddr2=0x360, irq=9
+
+
+ata0-master: type=disk, mode=flat, path="rasm.img"
+
+#boot: floppy
+boot: disk
+
+floppy_bootsig_check: disabled=0
+
+log: /dev/null
+#log: bochsout.txt
+
+#logprefix: %t%e%d
+
+panic: action=ask
+error: action=report
+info: action=report
+debug: action=ignore, pci=report # report BX_DEBUG from module 'pci'
+
+#debugger_log: /dev/null
+#debugger_log: debugger.out
+debugger_log: -
+
+parport1: enabled=1, file="parport.out"
+
+#sb16: midimode=1, midi=/dev/midi00, wavemode=1, wave=/dev/dsp, loglevel=2, log=sb16.log, dmatimer=600000
+
+#es1370: enabled=1, wavedev=alsa
+
+#keyboard: type=mf, serial_delay=250
+
+mouse: enabled=0
+
+private_colormap: enabled=0
+
+pci: enabled=1, chipset=i440fx
+
+
+#usb_ohci: enabled=1
+#usb_ohci: enabled=1, port1=printer:usbprinter.bin
+
+#usb_xhci: enabled=1
+
+#cmosimage: file=cmos.img, rtc_init=time0
+
+#magic_break: enabled=1
+
+megs: 8
