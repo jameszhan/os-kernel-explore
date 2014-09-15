@@ -104,7 +104,7 @@ RASM.new.instance_eval do
   jmp 0xFE
 
   codes = [opcodes].pack('H*')
-  open 'rasm.img', 'wb' do|io|
+  open 'rasm-tmp.img', 'wb' do|io|
     io << codes
     len = codes.length
     io << msg
