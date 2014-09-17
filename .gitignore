@@ -13,5 +13,6 @@ bochsout.txt
 */tools/system
 */bochs/bootimage-0.00
 
-tmp/*
-/local/*
+tmp/
+/local
+marvelous
