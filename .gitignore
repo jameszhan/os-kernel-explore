@@ -13,6 +13,11 @@ bochsout.txt
 */tools/system
 */bochs/bootimage-0.00
 
+/rasm-tmp
+
 tmp/
 /local
 marvelous
+
+/refs
+
