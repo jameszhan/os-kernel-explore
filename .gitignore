@@ -28,3 +28,5 @@ marvelous
 *.c~
 *.h~
 *.S~
+
+@eaDir
