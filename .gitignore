@@ -21,3 +21,10 @@ marvelous
 
 /refs
 
+*.iml
+*.ipr
+*.iws
+
+*.c~
+*.h~
+*.S~
