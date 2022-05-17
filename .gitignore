@@ -29,4 +29,7 @@ marvelous
 *.h~
 *.S~
 
+*.out
+*.img
+
 @eaDir
