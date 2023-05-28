@@ -362,18 +362,6 @@ struct address_space_operations {
 	int (*bmap)(struct address_space *, long);
 };
 
-<<<<<<< HEAD
-struct address_space { // 文件页面缓存
-	struct list_head	clean_pages;		/* list of clean pages */
-	struct list_head	dirty_pages;		/* list of dirty pages */
-	struct list_head	locked_pages;		/* list of locked pages */
-	unsigned long		nrpages;			/* number of total pages */
-	struct address_space_operations *a_ops;	/* methods */
-	struct inode		*host;				/* owner: inode, block_device */
-	struct vm_area_struct	*i_mmap;		/* list of private mappings */ // 私有内存映射
-	struct vm_area_struct	*i_mmap_shared; /* list of shared mappings */ // 共享内存映射
-	spinlock_t		i_shared_lock;  		/* and spinlock protecting it */
-=======
 struct address_space { // 文件与内存页的关联结构
 	struct list_head		clean_pages;		/* list of clean pages */
 	struct list_head		dirty_pages;		/* list of dirty pages */
@@ -384,7 +372,6 @@ struct address_space { // 文件与内存页的关联结构
 	struct vm_area_struct	*i_mmap;			/* list of private mappings */   // 私有内存映射
 	struct vm_area_struct	*i_mmap_shared; 	/* list of shared mappings */    // 共享内存映射
 	spinlock_t				i_shared_lock;		/* and spinlock protecting it */ // 共享内存时的锁
->>>>>>> 9eb42be2dae8a2e7c03c0bd8ea0d96f03b797017
 };
 
 struct block_device {
@@ -811,8 +798,7 @@ struct inode_operations {
 	int (*mkdir) (struct inode *,struct dentry *,int);
 	int (*rmdir) (struct inode *,struct dentry *);
 	int (*mknod) (struct inode *,struct dentry *,int,int);
-	int (*rename) (struct inode *, struct dentry *,
-			struct inode *, struct dentry *);
+	int (*rename) (struct inode *, struct dentry *, struct inode *, struct dentry *);
 	int (*readlink) (struct dentry *, char *,int);
 	int (*follow_link) (struct dentry *, struct nameidata *);
 	void (*truncate) (struct inode *);
